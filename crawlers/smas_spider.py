@@ -84,7 +84,7 @@ if __name__ == "__main__":
                   login_page='https://smas.edu.vn/Home/LogOn?ReturnUrl=%2fSMSEDUArea%2fTopup%2fCaptcha%2f7498348',
                   http_user='Hdg_th_tandan',
                   http_password='123456aA@',
-                  crawled_dir='/home/thieunguyen/Garage/data/captcha_smas/raw_data',
-                  max_count=504)
+                  crawled_dir='/home/thieunguyen/Garage/data/captcha_smas/raw_data_2',
+                  max_count=10000)
     process.crawl(CaptchaSpider, **params)
     process.start()

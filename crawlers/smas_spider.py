@@ -17,14 +17,14 @@ class CaptchaSpider(InitSpider):
              callback='parse', follow=True),)
 
     def __init__(self, url=None, login_page=None, http_user=None, http_password=None,
-                 crawled_dir='crawled_data/smas', max_count=10000, sleep_time=0.2, **kwargs):
+                 crawled_dir=None, max_count=10000, sleep_time=0.2, **kwargs):
         super(CaptchaSpider, self).__init__(**kwargs)
         self.login_page = login_page
         self.url = url
         self.max_count = max_count
         self.http_user = http_user
         self.http_password = http_password
-        self.crawled_dir = crawled_dir
+        self.crawled_dir = crawled_dir or os.path.join(os.path.dirname(os.path.dirname(__file__)), 'crawled_data')
         self.sleep_time = sleep_time
 
     def start_requests(self):
@@ -50,7 +50,7 @@ class CaptchaSpider(InitSpider):
         return Request(url=self.login_page, callback=self.login, cookies=self.get_cookies())
 
     def get_cookies(self):
-        return {}
+        return {'UserName': self.http_user, 'Password': self.http_password}
 
     def login(self, response):
         """Generate a login request."""
@@ -85,6 +85,6 @@ if __name__ == "__main__":
                   http_user='Hdg_th_tandan',
                   http_password='123456aA@',
                   crawled_dir='/home/thieunguyen/Garage/data/captcha_smas/raw_data',
-                  max_count=1000)
+                  max_count=504)
     process.crawl(CaptchaSpider, **params)
     process.start()
